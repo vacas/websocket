@@ -16,6 +16,21 @@ window.onload = function () {
         }
     }
 
+    function function1() {
+      if (msg.value.length > 0) {
+        console.log(msg.value);
+      }
+    }
+
+    function runner() {
+        function1();
+        setTimeout(function() {
+            runner();
+        }, 5000);
+    }
+
+    runner();
+
     document.getElementById("form").onsubmit = function () {
         if (!conn) {
             return false;
@@ -23,7 +38,9 @@ window.onload = function () {
         if (!msg.value) {
             return false;
         }
-        conn.send(msg.value);
+        conn.send(Object.stringify({
+          message: msg.value
+        }));
         msg.value = "";
         return false;
     };
